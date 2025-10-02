@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: rgb(185, 169, 178);
+        }
+
+        .guess {
+            display: flex;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .answer {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            height: 200px;
+            width: 200px;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 10px 5px rgba(0, 0, 0, 0.3);
+
+
+        }
+
+        .answer:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: rgb(255, 255, 255);
+            font-size: 2em;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            color: #4e3030;
+            font-size: 3em;
+
+        }
+
+        .playagain {
+            padding: 10px 20px;
+            font-size: 2em;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 10px 5px rgba(0, 0, 0, 0.3);
+            background-color: #b67070;
+            color: white;
+        }
+
+        .playagain:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        color guessing game
+    </h1>
+    <h2>
+
+    </h2>
+    <div class="guess">
+        <div class="answer one"></div>
+        <div class="answer two"></div>
+        <div class="answer three"></div>
+        <div class="answer four"></div>
+    </div>
+    <script>
+        const number = {
+            1: "one",
+            2: "two",
+            3: "three",
+            4: "four",
+        }
+        function color() {
+            let a = Math.round(Math.random() * 255)
+            let b = Math.round(Math.random() * 255)
+            let c = Math.round(Math.random() * 255)
+            return `rgb(${a},${b},${c})`;
+        }
+        let targetcolor;
+        function answer() {
+            targetcolor = color()
+            question = document.querySelector("h2")
+            question.textContent = "what color is this : " + targetcolor;
+            // question.style.backgroundColor = targetcolor
+
+            let classnumber = Math.round(Math.random() * 3) + 1
+            let game = "." + number[classnumber]
+            let realanswer = document.querySelector(game)
+            // console.log(realanswer)
+            realanswer.style.backgroundColor = targetcolor;
+            realanswer.classList.add("setted")
+
+
+            answers = document.querySelectorAll(".answer")
+            answers.forEach(answer => {
+                // console.log(answer)
+                if (answer.classList.contains("setted")) {
+                    // let b = color()
+                    // answer.style.backgroundColor = color();
+                } else { answer.style.backgroundColor = color(); }
+            });
+
+
+        }
+        let buttons = document.querySelectorAll(".answer")
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                console.log(btn.style.backgroundColor)
+                if (btn.classList.contains("setted") == true) {
+                    // alert("correct")
+                    // document.body.innerHTML = `<h1>correct </h1><div>play again</div>`
+                    // let playagain = document.querySelector("div")
+                    // playagain.classList.add("playagain")
+                    // playagain.addEventListener("click",()=>{
+                    //     location.reload()
+                    // })
+                    document.querySelector(".guess").style.display = "none";
+                    document.querySelector("h2").textContent = "Correct!";
+                    let playagain = document.createElement("div");
+                    playagain.textContent = "Play Again";
+                    playagain.classList.add("playagain");
+                    document.body.appendChild(playagain);
+                    playagain.addEventListener("click", () => location.reload());
+
+
+                }
+            })
+        }
+
+        )
+
+        answer()
+
+    </script>
+
+</body>
+
+</html>
